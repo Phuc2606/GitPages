@@ -31,7 +31,7 @@ Visit the live website: [https://phuc-cnpm.github.io/GitPages](https://phuc-cnpm
 │       └── static.yml       # GitHub Actions workflow (simple)
 ├── index.html               # Main HTML file
 ├── styles.css               # CSS styles
-├─�� script.js                # JavaScript functionality
+├── script.js                # JavaScript functionality
 ├── README.md                # Project documentation
 └── package.json             # Project configuration
 ```
@@ -54,7 +54,8 @@ Repository này đã được cấu hình với **GitHub Actions** để tự đ
    - Click tab **Settings**
    - Scroll xuống **Pages** section
    - Trong **Source**, chọn **GitHub Actions**
-   - Website sẽ tự động deploy mỗi khi push code!
+   - Website sẽ tự động deploy mỗi khi push code vào nhánh **main**!
+   - **Không có nhánh gh-pages nào được tạo** - deploy trực tiếp từ main branch
 
 3. **Xem quá trình deployment**:
    - Vào tab **Actions** để theo dõi quá trình build
@@ -84,8 +85,10 @@ gh repo edit --enable-pages --pages-branch main --pages-path /
 
 Repository này bao gồm 2 workflow files:
 
-- **`.github/workflows/deploy.yml`**: Full workflow với Node.js setup
 - **`.github/workflows/static.yml`**: Simple workflow cho static sites (khuyến nghị)
+- **`.github/workflows/main-branch-deploy.yml`**: Alternative workflow deploy trực tiếp từ main branch
+
+**Lưu ý quan trọng**: Workflows này sẽ deploy trực tiếp từ nhánh `main` mà **KHÔNG tạo nhánh `gh-pages`**. Website được deploy thông qua GitHub Pages artifacts thay vì nhánh gh-pages.
 
 ## 🔧 Local Development
 
