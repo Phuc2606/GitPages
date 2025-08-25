@@ -25,20 +25,46 @@ Visit the live website: [https://phuc-cnpm.github.io/GitPages](https://phuc-cnpm
 ## 📁 Project Structure
 
 ```
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles
-├── script.js           # JavaScript functionality
-├── README.md           # Project documentation
-└── package.json        # Project configuration
+├── .github/
+│   └── workflows/
+│       ├── deploy.yml       # GitHub Actions workflow (full)
+│       └── static.yml       # GitHub Actions workflow (simple)
+├── index.html               # Main HTML file
+├── styles.css               # CSS styles
+├─�� script.js                # JavaScript functionality
+├── README.md                # Project documentation
+└── package.json             # Project configuration
 ```
 
 ## 🚀 Deployment to GitHub Pages
 
-### Method 1: Using GitHub Web Interface
+### Method 1: Automatic Deployment với GitHub Actions (Khuyến nghị) 🤖
+
+Repository này đã được cấu hình với **GitHub Actions** để tự động deploy lên GitHub Pages:
+
+1. **Push code lên GitHub**:
+   ```bash
+   git add .
+   git commit -m "Update portfolio"
+   git push origin main
+   ```
+
+2. **Kích hoạt GitHub Pages với Actions**:
+   - Vào repository trên GitHub
+   - Click tab **Settings**
+   - Scroll xuống **Pages** section
+   - Trong **Source**, chọn **GitHub Actions**
+   - Website sẽ tự động deploy mỗi khi push code!
+
+3. **Xem quá trình deployment**:
+   - Vào tab **Actions** để theo dõi quá trình build
+   - Website available tại: `https://phuc-cnpm.github.io/GitPages`
+
+### Method 2: Manual Deployment
 
 1. **Push your code to GitHub**:
    - Make sure all files are committed and pushed to your repository
-   
+
 2. **Enable GitHub Pages**:
    - Go to your repository on GitHub
    - Click on **Settings** tab
@@ -47,16 +73,19 @@ Visit the live website: [https://phuc-cnpm.github.io/GitPages](https://phuc-cnpm
    - Choose **main** branch and **/ (root)** folder
    - Click **Save**
 
-3. **Access your website**:
-   - Your site will be available at: `https://your-username.github.io/your-repository-name`
-   - For this project: `https://phuc-cnpm.github.io/GitPages`
-
-### Method 2: Using GitHub CLI (if you have it installed)
+### Method 3: Using GitHub CLI
 
 ```bash
 # Enable GitHub Pages
 gh repo edit --enable-pages --pages-branch main --pages-path /
 ```
+
+## 🔄 GitHub Actions Workflows
+
+Repository này bao gồm 2 workflow files:
+
+- **`.github/workflows/deploy.yml`**: Full workflow với Node.js setup
+- **`.github/workflows/static.yml`**: Simple workflow cho static sites (khuyến nghị)
 
 ## 🔧 Local Development
 
