@@ -27,8 +27,7 @@ Visit the live website: [https://phuc-cnpm.github.io/GitPages](https://phuc-cnpm
 ```
 ├── .github/
 │   └── workflows/
-│       ├── deploy-gh-pages.yml     # Deploy to gh-pages branch (peaceiris)
-│       └── build-and-deploy.yml    # Deploy to gh-pages branch (JamesIves)
+│       └── deploy.yml              # GitHub Actions workflow for gh-pages deployment
 ├── index.html                      # Main HTML file
 ├── styles.css                      # CSS styles
 ├── script.js                       # JavaScript functionality
@@ -90,14 +89,19 @@ gh repo edit --enable-pages --pages-branch gh-pages --pages-path /
 - **Chứa code đã được deploy** từ main branch
 - **GitHub Pages serve từ nhánh này**, không phải từ main
 
-## 🔄 GitHub Actions Workflows
+## 🔄 GitHub Actions Workflow
 
-Repository này bao gồm 2 workflow files:
+Repository này có **1 workflow file duy nhất**:
 
-- **`.github/workflows/deploy-gh-pages.yml`**: Deploy s��� dụng peaceiris/actions-gh-pages (khuyến nghị)
-- **`.github/workflows/build-and-deploy.yml`**: Deploy sử dụng JamesIves/github-pages-deploy-action
+- **`.github/workflows/deploy.yml`**: Tự động deploy lên gh-pages branch
 
-**Lưu ý quan trọng**: Workflows này sẽ **tự động tạo nhánh `gh-pages`** và deploy website lên nhánh đó. Mỗi khi push code lên main, workflow sẽ copy files vào nhánh gh-pages.
+**Tính năng của workflow**:
+- ✅ **Tự động tạo nhánh `gh-pages`** khi chạy lần đầu
+- ✅ **Deploy từ main branch** mỗi khi có push
+- ✅ **2 deployment methods** trong cùng 1 file (peaceiris & JamesIves)
+- ✅ **Build support** (có thể uncomment nếu cần build process)
+- ✅ **Manual trigger** (có th�� chạy thủ công từ Actions tab)
+- ✅ **Node.js setup** (sẵn sàng cho future projects)
 
 ## 🔧 Local Development
 
