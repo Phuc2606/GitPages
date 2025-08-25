@@ -1,0 +1,58 @@
+# Deploy to gh-pages branch automatically
+name: Deploy to gh-pages branch
+
+on:
+  # Trigger khi push vào main branch
+  push:
+    branches: [main]
+  # Cho phép chạy thủ công
+  workflow_dispatch:
+
+# Permissions cần thiết
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout source code từ main branch
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      # Setup Node.js (optional nếu cần build)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      # Build project (nếu cần - hiện tại là static site nên skip)
+      # - name: Install dependencies
+      #   run: npm ci
+      # 
+      # - name: Build project  
+      #   run: npm run build
+      
+      # Deploy lên gh-pages branch
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy to gh-pages from ${{ github.sha }}'
+
+# Workflow này sẽ:
+# 1. Lấy code từ main branch
+# 2. Tạo/cập nhật nhánh gh-pages
+# 3. Copy toàn bộ static files vào gh-pages branch
+# 4. Commit và push lên gh-pages branch
+# 5. GitHub Pages sẽ serve từ gh-pages branch
