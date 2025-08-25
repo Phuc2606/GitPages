@@ -1,0 +1,51 @@
+# Deploy directly from main branch without creating gh-pages branch
+name: Main Branch Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Important: These permissions are needed for the action to work
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      # Checkout the main branch
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      
+      # Configure GitHub Pages
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+      
+      # Upload the static files as an artifact
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      
+      # Deploy to GitHub Pages (no gh-pages branch created)
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+# This workflow:
+# 1. Triggers on push to main branch
+# 2. Checks out main branch directly
+# 3. Uploads static files as artifact
+# 4. Deploys directly to GitHub Pages
+# 5. Does NOT create or use gh-pages branch
