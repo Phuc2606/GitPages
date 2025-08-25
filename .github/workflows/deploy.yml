@@ -1,0 +1,77 @@
+# Deploy Portfolio to GitHub Pages
+name: Deploy to GitHub Pages
+
+# Trigger events
+on:
+  # Chạy khi push vào main branch
+  push:
+    branches: [main]
+  # Cho phép chạy thủ công từ Actions tab
+  workflow_dispatch:
+
+# Permissions cần thiết cho GitHub token
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Concurrent deployments
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout source code từ main branch
+      - name: Checkout repository 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      # Setup Node.js (tùy chọn - có thể bỏ qua cho static site)
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      # Build project (uncomment nếu cần build process)
+      # - name: Install dependencies 📦
+      #   run: npm ci
+      # 
+      # - name: Build project 🔧
+      #   run: npm run build
+      
+      # Deploy lên gh-pages branch (Method 1 - Recommended)
+      - name: Deploy to gh-pages branch 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy portfolio from ${{ github.sha }}'
+          
+      # Alternative deployment method (comment out above and uncomment this if needed)
+      # - name: Deploy to gh-pages branch (Alternative) 🚀
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     branch: gh-pages
+      #     folder: .
+      #     clean: true
+      #     single-commit: true
+      #     commit-message: 'Deploy from main: ${{ github.sha }}'
+
+# Workflow này sẽ:
+# 1. Checkout code từ main branch
+# 2. Setup Node.js environment (optional)
+# 3. Build project nếu cần (hiện tại skip vì là static site)
+# 4. Tạo/cập nhật nhánh gh-pages
+# 5. Copy toàn bộ files vào gh-pages branch
+# 6. Commit và push lên gh-pages branch
+# 7. GitHub Pages sẽ serve website từ gh-pages branch
