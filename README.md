@@ -98,8 +98,10 @@ Repository này có **1 workflow file duy nhất**:
 **Tính năng của workflow**:
 - ✅ **Tự động tạo nhánh `gh-pages`** khi chạy lần đầu
 - ✅ **Deploy từ main branch** mỗi khi có push
-- ✅ **2 deployment methods** trong cùng 1 file (có thể chọn)
-- ✅ **Build support** (có thể uncomment nếu cần)
+- ✅ **2 deployment methods** trong cùng 1 file (peaceiris & JamesIves)
+- ✅ **Build support** (có thể uncomment nếu cần build process)
+- ✅ **Manual trigger** (có th�� chạy thủ công từ Actions tab)
+- ✅ **Node.js setup** (sẵn sàng cho future projects)
 
 ## 🔧 Local Development
 
