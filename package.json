@@ -1,0 +1,15 @@
+{
+  "name": "minh-phuc-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website for Minh Phúc - Computer Science Student at HCMUT",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 3000",
+    "serve": "python3 -m http.server 3000",
+    "dev": "python3 -m http.server 3000"
+  },
+  "keywords": ["portfolio", "personal-website", "computer-science", "hcmut"],
+  "author": "Minh Phúc",
+  "license": "MIT",
+  "homepage": "https://phuc-cnpm.github.io/GitPages"
+}
